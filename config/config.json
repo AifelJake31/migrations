@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "123456731",
+    "username": "newuser",
+    "password": "G90XhdA2",
     "database": "lt_mock_database",
-    "host": "127.0.0.1",
+    "host": "192.168.1.180",
     "dialect": "mysql"
   },
   "test": {
