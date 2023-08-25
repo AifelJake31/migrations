@@ -15,7 +15,7 @@ module.exports = {
       location: {
         type: Sequelize.STRING(255),
       },
-      date_created: {
+      date_created: { 
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

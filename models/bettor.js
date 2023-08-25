@@ -20,10 +20,6 @@ import sequelize from '../database/index.js'
         foreignKey: 'bettor_id',
         constraints: true
       })
-      Bettor.hasMany(models.Pick_One_Bet, { 
-        foreignKey: 'bettor_id', 
-        as: 'pickOneBets' 
-      });
     }
   }
   Bettor.init({
@@ -35,7 +31,7 @@ import sequelize from '../database/index.js'
     },
     agent_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Agent',
         key: 'id',
@@ -44,35 +40,44 @@ import sequelize from '../database/index.js'
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        isUsernameValid(value) {
+        const usernameRegex = /^[a-zA-Z0-9_]{6,20}$/;
+          if (!usernameRegex.test(value)) {
+            throw new Error('Invalid username format. Username should be at least 6 to 20 characters without special characters other than underscore (_)')
+          }
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    enabled: {
-      type: DataTypes.SMALLINT,
-      allowNull: false,
-      defaultValue: 0,
-    },
+    // enabled: {
+    //   type: DataTypes.SMALLINT,
+    //   allowNull: true,
+    //   defaultValue: 0,
+    // },
     password: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
     id_type: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     id_number: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     file_address: {
       type: DataTypes.TEXT('long'),
-      allowNull: false,
+      allowNull: true,
     },
     last_login: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     confirmation_token: {
       type: DataTypes.STRING(255),
@@ -82,14 +87,15 @@ import sequelize from '../database/index.js'
     },
     first_name: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     middle_name: {
       type: DataTypes.STRING(255),
+      allowNull: true
     },
     last_name: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     banned: {
       type: DataTypes.INTEGER,
@@ -100,23 +106,15 @@ import sequelize from '../database/index.js'
     },
     address: {
       type: DataTypes.TEXT('long'),
-      allowNull: false,
-    },
-    id_type: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    id_number: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     id_file_address: {
       type: DataTypes.TEXT('long'),
-      allowNull: false,
+      allowNull: true,
     },
     source_of_income: {
       type: DataTypes.STRING(64),
-      allowNull: false,
+      allowNull: true,
     },
     facebook_url: {
       type: DataTypes.TEXT('long'),
@@ -139,13 +137,20 @@ import sequelize from '../database/index.js'
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
       field: 'updatedAt',
     },
-    mobile_number: {
+    mobileNumber: {
       allowNull: false,
       type: DataTypes.STRING(255),
-    }
+      unique: true,
+      isMobileNumber(value) {
+        const mobileRegex = /^\+639\d{9}$/;
+        if (!mobileRegex.test(value)) {
+          throw new Error('Invalid Philippine mobile number format. Mobile number should start with "+639" followed by the 9-digit number.')
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Bettor',
-    tableName: 'Bettors',
+    tableName: 'bettors',
   });
   export default Bettor;

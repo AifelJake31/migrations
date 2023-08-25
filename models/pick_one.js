@@ -5,7 +5,8 @@ import sequelize from '../database/index.js'
     static associate(models) {
       Pick_One.hasMany(models.Pick_One_event, {
         foreignKey: "pick_one_id",
-        constraints: true
+        constraints: true,
+        as: 'pick_one_events'
       })
     }
   }
@@ -61,7 +62,7 @@ import sequelize from '../database/index.js'
     {
       sequelize,
       modelName: 'Pick_One',
-      tableName: 'Pick_Ones',
+      tableName: 'pick_ones',
     }
   );
   export default Pick_One;

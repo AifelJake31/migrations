@@ -76,20 +76,6 @@ module.exports = {
         field: 'updatedAt',
       }
     });
-
-    
-  
-    await queryInterface.addConstraint('Pick_One_Bets', {
-      type: 'foreign key',
-      name: 'FK_Pick_One_Bets_Event_Sharks',
-      fields: ['event_shark_id'],
-      references: {
-        table: 'Event_Sharks',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
     
     
   },

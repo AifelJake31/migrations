@@ -53,19 +53,9 @@ module.exports = {
         field: 'updatedAt',
       }
     });
-
-    await queryInterface.addConstraint('Pick_Ones', {
-      type: 'foreign key',
-      name: 'FK_Pick_Ones_Events',
-      fields: ['event_id'],
-      references: {
-        table: 'Events',
-        field: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
-    });
     
+
+
 
   },
   async down(queryInterface, Sequelize) {

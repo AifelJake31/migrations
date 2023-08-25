@@ -1,17 +1,15 @@
 'use strict';
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../database/index.js'
-
-
   class Pick_One_Bet extends Model {
     static associate(models) {
       Pick_One_Bet.belongsTo(models.Bettors,
          { foreignKey: 'bettorId',
-          as: 'bettor' 
+          as: 'bettor'
         });
         Pick_One_Bet.belongsTo(models.Pick_One,
           { foreignKey: 'pick_one_id',
-           as: 'bettor' 
+           as: 'bettor'
          });
     }
   }
@@ -35,9 +33,6 @@ import sequelize from '../database/index.js'
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      email: {
-        type: DataTypes.STRING,
-      },
       date_created: {
         type: DataTypes.DATE,
     allowNull: false,
@@ -53,8 +48,8 @@ import sequelize from '../database/index.js'
     },
     {
       sequelize,
-      modelName: 'Pick_One_Bet', 
-      tableName: 'Pick_One_Bets', 
+      modelName: 'Pick_One_Bet',
+      tableName: 'pick_one_bets',
     }
   );
   export default Pick_One_Bet;

@@ -11,7 +11,7 @@ module.exports = {
       },
       agent_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Agents',
           key: "id"
@@ -19,15 +19,24 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
+        validate: {
+          isUsernameValid(value) {
+          const usernameRegex = /^[a-zA-Z0-9_]{6,20}$/;
+            if (!usernameRegex.test(value)) {
+              throw new Error('Invalid username format. Username should be at least 6 to 20 characters without special characters other than underscore (_)')
+            }
+          }
+        }
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       enabled: {
         type: Sequelize.SMALLINT(1),
-        allowNull: false,
+        allowNull: true,
         defaultValue: 0
       },
       password: {
@@ -36,18 +45,18 @@ module.exports = {
       },
       id_type: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
       },
       id_number: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
       },
       file_address: {
         type: Sequelize.TEXT('long'),
-        allowNull: false
+        allowNull: true
       },
       last_login: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       confirmation_token: {
@@ -57,7 +66,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       first_name: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(255)
       },
       middle_name: {
@@ -65,7 +74,7 @@ module.exports = {
         type: Sequelize.STRING(255)
       },
       last_name: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(255)
       },
       banned:{
@@ -76,15 +85,15 @@ module.exports = {
         type: Sequelize.DATE
       },
       address: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT('long')
       },
       id_file_address: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT('long')
       },
       source_of_income: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(64)
       },
       facebook_url: {
@@ -108,11 +117,19 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         field: 'updatedAt',
+      },
+      mobileNumber: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+        unique: true,
+        isMobileNumber(value) {
+          const mobileRegex = /^\+639\d{9}$/;
+          if (!mobileRegex.test(value)) {
+            throw new Error('Invalid Philippine mobile number format. Mobile number should start with "+639" followed by the 9-digit number.')
+          }
+        }
       }
     });
-
-    
-
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Bettors');
