@@ -23,12 +23,19 @@ import sequelize from '../database/index.js'
     },
     date_created: {
       type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'createdAt',
     },
     date_updated: {
+      allowNull: false,
       type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      field: 'updatedAt',
     }
   }, {
     sequelize,
     modelName: 'Bettor_Wallet',
+    tableName: 'Bettor_Wallets',
   });
   export default Wallet;

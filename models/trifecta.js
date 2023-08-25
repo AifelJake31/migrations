@@ -68,18 +68,22 @@ import sequelize from '../database/index.js'
         type: DataTypes.DECIMAL(10, 2),
       },
       date_created: {
-        allowNull: false,
         type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'createdAt',
       },
       date_updated: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       },
     },
     {
       sequelize,
       modelName: 'Trifecta', 
-      tableName: 'Trifecta', 
+      tableName: 'Trifectas', 
     }
   );
   export default Trifecta;

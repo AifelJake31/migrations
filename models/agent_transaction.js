@@ -1,25 +1,52 @@
-'use strict';
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../database/index.js'
-  class Agent_Transaction extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      Agent_Transaction.belongsTo(models.Agent, {
-        foreignKey: "parent_agent_id",
-        constraints: true
-      })
-    }
-  }
-  Agent_Transaction.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Agent_Transaction',
-  });
-  export default Agent_Transaction;
+
+const AgentTransaction = sequelize.define('Agent_Transaction', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false,
+  },
+  parent_agent_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Agent',
+      key: 'id',
+    },
+  },
+  child_agent_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Agent',
+      key: 'id',
+    },
+  },
+  type: {
+    type: DataTypes.STRING,
+  },
+  amount: {
+    type: DataTypes.DECIMAL(10, 2),
+  },
+  status: {
+    type: DataTypes.SMALLINT(6),
+  },
+  date_created: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'createdAt',
+  },
+  date_updated: {
+    allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      field: 'updatedAt',
+  },
+}, {
+  modelName: 'Agent_Transaction',
+  tableName: 'Agent_Transactions',
+  timestamps: false, 
+});
+
+module.exports = AgentTransaction;

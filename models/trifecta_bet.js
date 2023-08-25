@@ -61,19 +61,23 @@ import sequelize from '../database/index.js'
       ending_balance: {
         type: DataTypes.DECIMAL(9, 2),
       },
-      createdAt: {
-        allowNull: false,
+      date_created: {
         type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
       },
-      updatedAt: {
+      date_updated: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       },
     },
     {
       sequelize,
       modelName: 'Trifecta_Bet',
-      tableName: 'Trifecta_Bet',
+      tableName: 'Trifecta_Bets',
     }
   );
   export default Trifecta_Bet;

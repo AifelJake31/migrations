@@ -10,7 +10,7 @@ import sequelize from '../database/index.js'
     static associate(models) {
       // define association here
     }
-  }
+  } 
   Withdraw_History.init({
     agent_id: {
       type: DataTypes.INTEGER,
@@ -36,14 +36,19 @@ import sequelize from '../database/index.js'
     },
     date_created: {
       type: DataTypes.DATE,
-      allowNull: false,
+    allowNull: false,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'createdAt',
     },
     date_updated: {
-      type: DataTypes.DATE,
       allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
     },
   }, {
     sequelize,
     modelName: 'Withdraw_History',
+    modelName: 'Withdraw_Histories',
   });
   export default Withdraw_History;

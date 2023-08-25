@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Rack', {
+    await queryInterface.createTable('Racks', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Event",
+          model: "Events",
           key: "id"
         }
       },
@@ -113,13 +113,19 @@ module.exports = {
       },
       date_created: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
       },
       date_updated: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Rack');
+    await queryInterface.dropTable('Racks');
   }
 };

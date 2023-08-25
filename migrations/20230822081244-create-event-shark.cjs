@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Event_Shark', {
+    await queryInterface.createTable('Event_Sharks', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,14 +12,14 @@ module.exports = {
       shark_id:{
         type: Sequelize.INTEGER,
         references: {
-          model: "Shark",
+          model: "Sharks",
           key: "id"
         }
       },
       event_id:{
         type: Sequelize.INTEGER,
         references: {
-          model: "Event",
+          model: "Events",
           key: "id"
         }
       },
@@ -40,13 +40,19 @@ module.exports = {
       },
       date_created: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
       },
       date_updated: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Event_Shark');
+    await queryInterface.dropTable('Event_Sharks');
   }
 };

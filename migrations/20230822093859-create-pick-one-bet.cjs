@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Pick_One_Bet', {
+    await queryInterface.createTable('Pick_One_Bets', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Bettor",
+          model: "Bettors",
           key: 'id'
         }
       },
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Pick_One",
+          model: "Pick_Ones",
           key: 'id'
         }
       },
@@ -29,24 +29,73 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Event_Shark",
+          model: "Event_Sharks",
           key: 'id'
         }
       },
-      email: {
-        type: Sequelize.STRING
+      amount: {
+        type: Sequelize.DECIMAL(9,2)
       },
-      createdAt: {
-        allowNull: false,
+      payout: {
+        type: Sequelize.DECIMAL(9,2)
+      },
+      payout_odds: {
+        type: Sequelize.DECIMAL(9,2)
+      },
+      rake: {
+        type: Sequelize.DECIMAL(9,2)
+      },
+      raked_amount: {
+        type: Sequelize.DECIMAL(9,2)
+      },
+      winner: {
+        type: Sequelize.TINYINT
+      },
+      date_awarded: {
         type: Sequelize.DATE
       },
-      updatedAt: {
-        allowNull: false,
+      date_refunded: {
         type: Sequelize.DATE
+      },
+      starting_balance: {
+        type: Sequelize.DECIMAL(9,2)
+      },
+      ending_balance: {
+        type: Sequelize.DECIMAL(9,2)
+      },
+      date_created: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
+      },
+      date_updated: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       }
     });
+
+    
+  
+    await queryInterface.addConstraint('Pick_One_Bets', {
+      type: 'foreign key',
+      name: 'FK_Pick_One_Bets_Event_Sharks',
+      fields: ['event_shark_id'],
+      references: {
+        table: 'Event_Sharks',
+        field: 'id'
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    });
+    
+    
   },
+
+  
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Pick_One_Bet');
+    await queryInterface.dropTable('Pick_One_Bets');
   }
 };

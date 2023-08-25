@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Bettor_Cash_Out', {
+    await queryInterface.createTable('Bettor_Cash_Outs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
       bettor_id: {
         type: Sequelize.INTEGER,
         references:{
-          model: "Bettor",
+          model: "Bettors",
           key: "id"
         }
       },
@@ -30,13 +30,19 @@ module.exports = {
       },
       date_created: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
       },
       date_updated: {
         type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Bettor_Cash_Out');
+    await queryInterface.dropTable('Bettor_Cash_Outs');
   }
 };

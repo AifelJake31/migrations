@@ -1,5 +1,4 @@
 'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -8,6 +7,19 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
+
+import Pick_One from './pick_one';
+import Bettor from './bettor';
+import Pick_One_Bet from './pick_one_bet'
+
+Pick_One.hasMany(models.Pick_One_event, {
+  foreignKey: "pick_one_id",
+  constraints: true
+})
+Bettor.hasMany(models.Pick_One_Bet, { 
+  foreignKey: 'bettor_id', 
+  as: 'pickOneBets' 
+});
 
 let sequelize;
 if (config.use_env_variable) {
@@ -39,5 +51,7 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+
 
 module.exports = db;

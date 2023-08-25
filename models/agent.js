@@ -70,13 +70,20 @@ import sequelize from '../database/index.js'
       type: DataTypes.DECIMAL
     },
     date_created: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'createdAt',
     },
     date_updated: {
-      type: DataTypes.DATE
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+      field: 'updatedAt',
     }
   }, {
     sequelize,
     modelName: 'Agent',
+    tableName: 'Agents',
   });
   export default Agent;

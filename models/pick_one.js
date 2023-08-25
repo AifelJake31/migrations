@@ -46,18 +46,22 @@ import sequelize from '../database/index.js'
         type: DataTypes.INTEGER,
       },
       date_created: {
-        allowNull: false,
         type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    field: 'createdAt',
       },
       date_updated: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       },
     },
     {
       sequelize,
       modelName: 'Pick_One',
-      tableName: 'Pick_One',
+      tableName: 'Pick_Ones',
     }
   );
   export default Pick_One;

@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Trifecta_Bet', {
+    await queryInterface.createTable('Trifecta_Bets', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Bettor",
+          model: "Bettors",
           key: 'id'
         }
       },
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Trifecta',
+          model: 'Trifectas',
           key: 'id'
         }
       },
@@ -61,17 +61,21 @@ module.exports = {
       ending_balance: {
         type: Sequelize.DECIMAL(9,2)
       },
-      createdAt: {
+      date_created: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
       },
-      updatedAt: {
+      date_updated: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Trifecta_Bet');
+    await queryInterface.dropTable('Trifecta_Bets');
   }
 };

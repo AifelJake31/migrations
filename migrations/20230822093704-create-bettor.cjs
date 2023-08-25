@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Bettor', {
+    await queryInterface.createTable('Bettors', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,11 +13,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Agent',
+          model: 'Agents',
           key: "id"
         }
       },
-      user_name: {
+      username: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -79,14 +79,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT('long')
       },
-      id_type: {
-        allowNull: false,
-        type: Sequelize.STRING(255)
-      },
-      id_number: {
-        allowNull: false,
-        type: Sequelize.STRING(255)
-      },
       id_file_address: {
         allowNull: false,
         type: Sequelize.TEXT('long')
@@ -106,16 +98,23 @@ module.exports = {
         type: Sequelize.TEXT('long')
       },
       date_created: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        field: 'createdAt',
       },
       date_updated: {
+        type: Sequelize.DATE,
         allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+        field: 'updatedAt',
       }
     });
+
+    
+
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Bettor');
+    await queryInterface.dropTable('Bettors');
   }
 };

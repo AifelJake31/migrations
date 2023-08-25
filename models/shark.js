@@ -1,40 +1,50 @@
 'use strict';
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../database/index.js'
-  class Shark extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      Shark.hasMany(models.Event_Shark, {
-        foreignKey: "shark_id",
-        constraints: true
-      })
-    }
+import sequelize from '../database/index.js';
+
+class Shark extends Model {
+  static associate(models) {
+    Shark.hasMany(models.Event_Shark, {
+      foreignKey: 'shark_id',
+      constraints: true,
+    });
   }
-  Shark.init({
+}
+
+Shark.init(
+  {
     name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     short_name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     location: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     date_created: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      field: 'createdAt',
     },
     date_updated: {
-      type: DataTypes.DATE
-    }
-  }, {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      field: 'updatedAt',
+      onUpdate: sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+  },
+  {
     sequelize,
     modelName: 'Shark',
-  });
-  export default Shark;
+    tableName: 'Sharks',
+    timestamps: false,
+  }
+);
+
+export default Shark;
