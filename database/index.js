@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize('lt_mock_database', 'devuser', 'G90XhdA2', {
-    host: '192.168.1.180',
+const sequelize = new Sequelize('lt_mock_database', 'user', '123456731', {
+    host: 'localhost',
     dialect: 'mysql'
   });
 
