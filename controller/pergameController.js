@@ -207,7 +207,21 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
     //   return false
     // }
 
-    return res.status(200).json({ success: true, data: pickOneBets });
+    const extractedDatas = pickOneBets.map(eventShark => ({
+      shark: {
+        name: eventShark.shark.name,
+        shortName: eventShark.shark.shortName,
+
+      },
+      event_shark: {
+        handicap: eventShark.handicap
+      },
+      event: {
+        numberOfSharks: eventShark.event.number_of_sharks
+      }
+    }));
+
+    return res.status(200).json({ success: true, data: extractedDatas });
 
   } catch (error) {
     if (error.name === 'SequelizeValidationError') {
