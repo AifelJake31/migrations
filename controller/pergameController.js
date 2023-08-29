@@ -159,6 +159,9 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
         {
           model: Bettor,
           as: 'bettor',
+          where: {
+            id : 1
+          }
         },
         {
           model: Pick_One,
@@ -170,6 +173,9 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
         {
           model: Event_Shark,
           as: 'event_shark',
+          where: {
+            id : 1
+          },
           include: [
             {
               model: Event,
@@ -178,9 +184,11 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
                 id: eventIdsWithActiveZero // Filter by the event IDs with active === 0
               },              
             },
-
             {
               model: Shark,
+              where: {
+                id : 1
+              },
               as: 'shark'
             }
           ],
