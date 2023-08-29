@@ -77,7 +77,7 @@ import sequelize from '../database/index.js'
     {
       sequelize,
       modelName: 'Trifecta_Bet',
-      tableName: 'Trifecta_Bets',
+      tableName: 'trifecta_bets',
     }
   );
   export default Trifecta_Bet;

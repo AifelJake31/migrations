@@ -83,7 +83,7 @@ import sequelize from '../database/index.js'
     {
       sequelize,
       modelName: 'Trifecta', 
-      tableName: 'Trifectas', 
+      tableName: 'trifectas', 
     }
   );
   export default Trifecta;

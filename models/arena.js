@@ -33,6 +33,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Arena',
-    tableName: 'Arenas',
+    tableName: 'arenas',
   });
   export default Arena;

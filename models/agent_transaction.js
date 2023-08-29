@@ -45,7 +45,7 @@ const AgentTransaction = sequelize.define('Agent_Transaction', {
   },
 }, {
   modelName: 'Agent_Transaction',
-  tableName: 'Agent_Transactions',
+  tableName: 'agent_transactions',
   timestamps: false, 
 });
 

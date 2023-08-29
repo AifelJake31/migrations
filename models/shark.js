@@ -42,7 +42,7 @@ Shark.init(
   {
     sequelize,
     modelName: 'Shark',
-    tableName: 'Sharks',
+    tableName: 'sharks',
     timestamps: false,
   }
 );

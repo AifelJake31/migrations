@@ -84,6 +84,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Agent',
-    tableName: 'Agents',
+    tableName: 'agents',
   });
   export default Agent;

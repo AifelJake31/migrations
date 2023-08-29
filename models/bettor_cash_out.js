@@ -45,6 +45,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Bettor_Cash_Out',
-    tableName: 'Bettor_Cash_Outs',
+    tableName: 'bettor_cash_outs',
   });
   export default Bettor_Cash_Out;

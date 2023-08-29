@@ -10,15 +10,23 @@ import sequelize from '../database/index.js'
     static associate(models) {
       Bettor.hasMany(models.Bettor_Cash_In, {
         foreignKey: 'bettor_id',
-        constraints: true
+        constraints: true,
+        as: 'bettor_cash_in'
       })
       Bettor.hasMany(models.Bettor_Cash_out, {
         foreignKey: 'bettor_id',
-        constraints: true
+        constraints: true,
+        as: 'bettor_cash_out'
       })
       Bettor.hasMany(models.Bettor_Wallet, {
         foreignKey: 'bettor_id',
-        constraints: true
+        constraints: true,
+        as: 'bettor_wallet'
+      })
+      Bettor.hasMany(models.Rack_Bet, {
+        foreignKey: 'bettor_id',
+        constraints: true,
+        as: 'rack_bet'
       })
     }
   }

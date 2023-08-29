@@ -10,17 +10,20 @@ import sequelize from '../database/index.js'
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Rack_Bet.belongsTo(models.Event_Shark, {
+      Rack_Bet.belongsTo(Event_Shark, {
         foreignKey: "event_shark_id",
-        constraints: true
+        constraints: true,
+        as: 'event_shark'
       })
-      Rack_Bet.belongsTo(models.Rack, {
+      Rack_Bet.belongsTo(Rack, {
         foreignKey: "rack_id",
-        constraints: true
+        constraints: true,
+        as: 'rack'
       })
-      Rack_Bet.belongsTo(models.Bettor, {
+      Rack_Bet.belongsTo(Bettor, {
         foreignKey: "bettor_id",
-        constraints: true
+        constraints: true,
+        as: 'bettor'
       })
       Rack_Bet.hasOne(models.Commission_History, {
         foreignKey: "rack_bet_id",
@@ -96,7 +99,7 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Rack_Bet',
-    modelName: 'Rack_Bets',
+    tableName: 'rack_bets',
   });
   
   export default Rack_Bet;

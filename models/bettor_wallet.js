@@ -36,6 +36,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Bettor_Wallet',
-    tableName: 'Bettor_Wallets',
+    tableName: 'bettor_wallets',
   });
   export default Wallet;

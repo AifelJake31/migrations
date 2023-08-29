@@ -49,6 +49,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Commission_History',
-    modelName: 'Commission_Histories',
+    tableName: 'commission_histories',
   });
   export default Commission_History;

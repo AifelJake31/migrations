@@ -45,6 +45,6 @@ import sequelize from '../database/index.js'
   }, 
     sequelize,
     modelName: 'Bettor_Cash_In',
-    tableName: 'Bettor_Cash_Ins',
+    tableName: 'bettor_cash_ins',
   });
   export default Bettor_Cash_In;

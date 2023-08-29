@@ -11,19 +11,23 @@ import sequelize from '../database/index.js'
     static associate(models) {
       Event_Shark.belongsTo(models.Event, {
         foreignKey: "event_id",
-        constraints: true
+        constraints: true,
+        as: "event"
       })
       Event_Shark.hasMany(models.Rack_Bet, {
         foreignKey: "event_shark_id",
-        constraints: true
+        constraints: true,
+        as: "rack_bet"
       })
       Event_Shark.hasMany(models.Pick_One_Bet, {
         foreignKey: "event_shark_id",
-        constraints: true
+        constraints: true,
+        as: 'pick_one_bet'
       })
       Event_Shark.belongsTo(models.Shark, {
         foreignKey: "shark_id",
-        constraints: true
+        constraints: true,
+        as: "shark"
       })
     }
   }
@@ -64,6 +68,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Event_Shark',
-    modelName: 'Event_Sharks',
+    tableName: 'event_sharks',
   });
   export default Event_Shark;

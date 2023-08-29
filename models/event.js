@@ -13,7 +13,7 @@ import sequelize from '../database/index.js'
         foreignKey: 'arena_id',
         constraints: true
       });
-      Event.hasMany(models.EventShark, {
+      Event.hasMany(models.Event_Shark, {
         foreignKey: 'event_id',
         constraints: true
       });
@@ -111,7 +111,7 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Event',
-    modelName: 'Events',
+    tableName: 'events',
   });
   
   export default Event;

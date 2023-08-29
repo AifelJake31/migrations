@@ -11,7 +11,8 @@ import sequelize from '../database/index.js'
       })
       Rack.hasMany(models.Rack_Bet, {
         foreignKey: 'rack_id',
-        constraints: true
+        constraints: true,
+        as: 'rack_bet'
       })
     }
   }
@@ -129,7 +130,7 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Rack',
-    modelName: 'Racks',
+    tableName: 'racks',
   });
   
   export default Rack;

@@ -49,6 +49,6 @@ import sequelize from '../database/index.js'
   }, {
     sequelize,
     modelName: 'Withdraw_History',
-    modelName: 'Withdraw_Histories',
+    tableName: 'withdraw_histories',
   });
   export default Withdraw_History;
