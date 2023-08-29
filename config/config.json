@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "user",
+    "username": "root",
     "password": "123456731",
     "database": "lt_mock_database",
     "host": "localhost",

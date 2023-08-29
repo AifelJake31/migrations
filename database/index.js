@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize('lt_mock_database', 'user', '123456731', {
+const sequelize = new Sequelize('lt_mock_database', 'root', '123456731', {
     host: 'localhost',
     dialect: 'mysql'
   });
