@@ -96,6 +96,50 @@ const getAllBets = asyncHandler(async (req, res) => {
 //   }
 // });
 
+const savePickOneBets = asyncHandler(async (req, res) => {
+  try {
+    // Find Pick_One records with status 1
+    const findPickOne = await Pick_One.findAll({
+      where: {
+        status: 1,
+      },
+    });
+
+    // Check if any Pick_One records with status 1 were found
+    if (findPickOne) {
+      const { bettor_id, pick_one_id, event_shark_id, amount } = req.body;
+
+      // Create a Pick_One_Bet associated with the first Pick_One record with status 1
+      const postbet = await Pick_One_Bet.create({
+        amount,
+        bettor_id,
+        pick_one_id,
+        event_shark_id,
+
+      });
+
+      res.status(200).json({ success: true, data: findPickOne });
+    } else {
+      // No Pick_One records with status 1 were found
+      res.status(400).json({
+        success: false,
+        error: 'No Pick_One with status 1 found to associate the bet with.',
+      });
+    }
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError') {
+      const errorMessages = error.errors.map(
+        (validationError) => validationError.message
+      );
+      return res.status(400).json({ success: false, error: errorMessages });
+    } else {
+      console.error(error); // Log the specific error
+      return res.status(500).json({ success: false, error: 'Server Error' });
+    }
+  }
+});
+
+
 
 const getAllPickOneBets = asyncHandler(async (req, res) => {
   try {
@@ -119,6 +163,9 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
         {
           model: Pick_One,
           as: 'pick_one',
+          where: {
+            status : 1
+          }
         },
         {
           model: Event_Shark,
@@ -129,14 +176,31 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
               as: 'event',
               where: {
                 id: eventIdsWithActiveZero // Filter by the event IDs with active === 0
-              },
+              },              
             },
+
+            {
+              model: Shark,
+              as: 'shark'
+            }
           ],
         },
       ],
     });
 
+    // if(pickOneBets.pick_one.status === 1) {
+
+    //   const { amount } = req.body 
+
+    //   const newPickOnebets = await Pick_One_Bet.create({
+    //     amount,
+    //   })
+    // } else {
+    //   return false
+    // }
+
     return res.status(200).json({ success: true, data: pickOneBets });
+
   } catch (error) {
     if (error.name === 'SequelizeValidationError') {
       const errorMessages = error.errors.map(validationError => validationError.message);
@@ -147,12 +211,6 @@ const getAllPickOneBets = asyncHandler(async (req, res) => {
     }
   }
 });
-
-
-
-
-
-
 
 
 const getAllEventSharks = asyncHandler(async (req, res) => {
@@ -173,7 +231,8 @@ const getAllEventSharks = asyncHandler(async (req, res) => {
     const extractedData = allEventSharks.map(eventShark => ({
       shark: {
         name: eventShark.shark.name,
-        shortName: eventShark.shark.shortName
+        shortName: eventShark.shark.shortName,
+
       },
       event: {
         numberOfSharks: eventShark.event.number_of_sharks
@@ -232,5 +291,6 @@ export {
   getAllBets,
   getAllPickOneBets,
   getAllEventSharks,
-  getAllRackbets
+  getAllRackbets,
+  savePickOneBets
 };

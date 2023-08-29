@@ -11,7 +11,7 @@ module.exports = {
       },
       bettor_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "Bettors",
           key: 'id'
@@ -19,7 +19,7 @@ module.exports = {
       },
       pick_one_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull:true,
         references: {
           model: "Pick_Ones",
           key: 'id'
@@ -27,7 +27,7 @@ module.exports = {
       },
       event_shark_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "Event_Sharks",
           key: 'id'
